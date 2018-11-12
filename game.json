@@ -251,6 +251,24 @@
         "name": "Resources\\Art Files\\rock.png",
         "smoothed": true,
         "userAdded": true
+      },
+      {
+        "alwaysLoaded": false,
+        "file": "Resources/Art Files/rock-floor.PNG",
+        "kind": "image",
+        "metadata": "",
+        "name": "Resources\\Art Files\\rock-floor.PNG",
+        "smoothed": true,
+        "userAdded": true
+      },
+      {
+        "alwaysLoaded": false,
+        "file": "Resources/Art Files/rock-wall.PNG",
+        "kind": "image",
+        "metadata": "",
+        "name": "Resources\\Art Files\\rock-wall.PNG",
+        "smoothed": true,
+        "userAdded": false
       }
     ],
     "resourceFolders": []
@@ -273,6 +291,10 @@
     {
       "name": "numActiveTouches",
       "value": "0"
+    },
+    {
+      "name": "camDeadZone",
+      "value": "0.25"
     }
   ],
   "layouts": [
@@ -411,6 +433,9 @@
             },
             {
               "name": "UIMenuButton"
+            },
+            {
+              "name": "InvPanelCloseButton"
             }
           ]
         }
@@ -419,20 +444,28 @@
         {
           "name": "AmbientDarkness",
           "value": "60"
+        },
+        {
+          "name": "OffsetX",
+          "value": "0"
+        },
+        {
+          "name": "OffsetY",
+          "value": "0"
         }
       ],
       "instances": [
         {
           "angle": 0,
           "customSize": true,
-          "height": 64,
+          "height": 10000,
           "layer": "",
           "locked": false,
           "name": "WorldAmbientDarkness",
-          "width": 64,
-          "x": 0,
-          "y": 0,
-          "zOrder": 0,
+          "width": 10000,
+          "x": -557,
+          "y": -573,
+          "zOrder": -10000,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
@@ -586,6 +619,81 @@
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "height": 1008,
+          "layer": "",
+          "locked": false,
+          "name": "FloorRock",
+          "width": 1234,
+          "x": -242,
+          "y": -207,
+          "zOrder": -200,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "height": 1024,
+          "layer": "",
+          "locked": false,
+          "name": "FloorWall",
+          "width": 64,
+          "x": -246,
+          "y": -211,
+          "zOrder": -199,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "height": 64,
+          "layer": "",
+          "locked": false,
+          "name": "FloorWall",
+          "width": 1189,
+          "x": -191,
+          "y": -255,
+          "zOrder": -199,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "height": 1011,
+          "layer": "",
+          "locked": false,
+          "name": "FloorWall",
+          "width": 64,
+          "x": 986,
+          "y": -208,
+          "zOrder": -199,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": true,
+          "height": 64,
+          "layer": "",
+          "locked": false,
+          "name": "FloorWall",
+          "width": 1242,
+          "x": -205,
+          "y": 786,
+          "zOrder": -199,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
         }
       ],
       "objects": [
@@ -610,8 +718,8 @@
                       "points": [],
                       "originPoint": {
                         "name": "origine",
-                        "x": 0,
-                        "y": 0
+                        "x": 32,
+                        "y": 32
                       },
                       "centerPoint": {
                         "automatic": true,
@@ -711,6 +819,23 @@
                       "value": "N"
                     }
                   ]
+                },
+                {
+                  "name": "MovePlayer",
+                  "children": [
+                    {
+                      "name": "DestX",
+                      "value": ""
+                    },
+                    {
+                      "name": "DestY",
+                      "value": ""
+                    },
+                    {
+                      "name": "Trigger",
+                      "value": "N"
+                    }
+                  ]
                 }
               ]
             },
@@ -738,11 +863,28 @@
             {
               "name": "ZBase",
               "value": "20"
+            },
+            {
+              "name": "Destination",
+              "children": [
+                {
+                  "name": "IsMoving",
+                  "value": "N"
+                },
+                {
+                  "name": "X",
+                  "value": ""
+                },
+                {
+                  "name": "Y",
+                  "value": ""
+                }
+              ]
             }
           ],
           "behaviors": [
             {
-              "acceleration": 400,
+              "acceleration": 0,
               "allowDiagonals": true,
               "angleOffset": 0,
               "angularMaxSpeed": 180,
@@ -1476,6 +1618,53 @@
               ]
             }
           ]
+        },
+        {
+          "height": 32,
+          "name": "FloorRock",
+          "texture": "Resources\\Art Files\\rock-floor.PNG",
+          "type": "TiledSpriteObject::TiledSprite",
+          "width": 32,
+          "variables": [],
+          "behaviors": []
+        },
+        {
+          "name": "FloorWall",
+          "type": "Sprite",
+          "updateIfNotVisible": false,
+          "variables": [],
+          "behaviors": [],
+          "animations": [
+            {
+              "name": "",
+              "useMultipleDirections": false,
+              "directions": [
+                {
+                  "looping": false,
+                  "timeBetweenFrames": 1,
+                  "sprites": [
+                    {
+                      "hasCustomCollisionMask": false,
+                      "image": "Resources\\Art Files\\rock-wall.PNG",
+                      "points": [],
+                      "originPoint": {
+                        "name": "origine",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "centerPoint": {
+                        "automatic": true,
+                        "name": "centre",
+                        "x": 0,
+                        "y": 0
+                      },
+                      "customCollisionMask": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ],
       "events": [
@@ -1546,6 +1735,29 @@
             }
           ],
           "parameters": []
+        },
+        {
+          "disabled": true,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "MettreXY"
+              },
+              "parameters": [
+                "WorldAmbientDarkness",
+                "=",
+                "Player.X() - (SceneWindowWidth() / 2)",
+                "=",
+                "Player.Y() - (SceneWindowHeight() / 2)"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
         }
       ],
       "layers": [
@@ -1693,8 +1905,239 @@
                 "textG": 0,
                 "textR": 0
               },
-              "comment": "When a new touch starts, add it to a global variable",
+              "comment": "When the move player event is triggered, move the player to the given location.",
               "comment2": ""
+            },
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "VarObjetTxt"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Events.MovePlayer.Trigger",
+                    "=",
+                    "\"Y\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "ModVarObjet"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Destination.X",
+                    "=",
+                    "Player.Variable(Events.MovePlayer.DestX)"
+                  ],
+                  "subInstructions": []
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "ModVarObjet"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Destination.Y",
+                    "=",
+                    "Player.Variable(Events.MovePlayer.DestY)"
+                  ],
+                  "subInstructions": []
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "ModVarObjetTxt"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Events.MovePlayer.Trigger",
+                    "=",
+                    "\"N\""
+                  ],
+                  "subInstructions": []
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "ModVarObjetTxt"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Destination.IsMoving",
+                    "=",
+                    "\"Y\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": []
+            },
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Comment",
+              "color": {
+                "b": 109,
+                "g": 230,
+                "r": 255,
+                "textB": 0,
+                "textG": 0,
+                "textR": 0
+              },
+              "comment": "When a player is given a new destination, player moves to it.",
+              "comment2": ""
+            },
+            {
+              "disabled": false,
+              "folded": false,
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "VarObjetTxt"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Destination.IsMoving",
+                    "=",
+                    "\"Y\""
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "AddForceVersPos"
+                  },
+                  "parameters": [
+                    "Player",
+                    "Player.Variable(Destination.X)",
+                    "Player.Variable(Destination.Y)",
+                    "100 * LayerTimeScale(\"\")",
+                    "0"
+                  ],
+                  "subInstructions": []
+                }
+              ],
+              "events": [
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "BuiltinCommonInstructions::And"
+                      },
+                      "parameters": [],
+                      "subInstructions": [
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "Egal"
+                          },
+                          "parameters": [
+                            "Player.X()",
+                            "=",
+                            "Player.Variable(Destination.X)"
+                          ],
+                          "subInstructions": []
+                        },
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "Egal"
+                          },
+                          "parameters": [
+                            "Player.Y()",
+                            "=",
+                            "Player.Variable(Destination.Y)"
+                          ],
+                          "subInstructions": []
+                        }
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "ModVarObjetTxt"
+                      },
+                      "parameters": [
+                        "Player",
+                        "Destination.IsMoving",
+                        "=",
+                        "\"N\""
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "CollisionNP"
+                      },
+                      "parameters": [
+                        "Player",
+                        "FloorWall",
+                        "",
+                        ""
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "ModVarObjetTxt"
+                      },
+                      "parameters": [
+                        "Player",
+                        "Destination.IsMoving",
+                        "=",
+                        "\"N\""
+                      ],
+                      "subInstructions": []
+                    },
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "SeparateFromObjects"
+                      },
+                      "parameters": [
+                        "Player",
+                        "FloorWall"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                }
+              ]
             }
           ],
           "parameters": []
@@ -1742,6 +2185,198 @@
           },
           "comment": "Camera Manager: Used for managing the in-game camera and player tracking",
           "comment2": ""
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "PosX"
+              },
+              "parameters": [
+                "Player",
+                "<",
+                "(SceneWindowWidth() / 2) - (SceneWindowWidth() * 0.25)"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarScene"
+              },
+              "parameters": [
+                "OffsetX",
+                "+",
+                "Player.X() - CameraX(\"Darkness\", 0)"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "CameraX"
+              },
+              "parameters": [
+                "",
+                "=",
+                "Player.X()",
+                "\"\"",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "PosX"
+              },
+              "parameters": [
+                "Player",
+                ">",
+                "(SceneWindowWidth() / 2) + (SceneWindowWidth() * 0.25)"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarScene"
+              },
+              "parameters": [
+                "OffsetX",
+                "+",
+                "Player.X() - CameraX(\"Darkness\", 0)"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "CameraX"
+              },
+              "parameters": [
+                "",
+                "=",
+                "Player.X()",
+                "\"\"",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "PosY"
+              },
+              "parameters": [
+                "Player",
+                "<",
+                "(SceneWindowHeight() / 2) - (SceneWindowHeight() * 0.25)"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarScene"
+              },
+              "parameters": [
+                "OffsetY",
+                "+",
+                "Player.Y() - CameraY(\"Darkness\", 0)"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "CameraY"
+              },
+              "parameters": [
+                "",
+                "=",
+                "Player.Y()",
+                "\"\"",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
+        },
+        {
+          "disabled": false,
+          "folded": false,
+          "type": "BuiltinCommonInstructions::Standard",
+          "conditions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "PosY"
+              },
+              "parameters": [
+                "Player",
+                ">",
+                "(SceneWindowHeight() / 2) + (SceneWindowHeight() * 0.25)"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "actions": [
+            {
+              "type": {
+                "inverted": false,
+                "value": "ModVarScene"
+              },
+              "parameters": [
+                "OffsetY",
+                "+",
+                "Player.Y() - CameraY(\"Darkness\", 0)"
+              ],
+              "subInstructions": []
+            },
+            {
+              "type": {
+                "inverted": false,
+                "value": "CameraY"
+              },
+              "parameters": [
+                "",
+                "=",
+                "Player.Y()",
+                "\"\"",
+                "0"
+              ],
+              "subInstructions": []
+            }
+          ],
+          "events": []
         }
       ]
     },
@@ -2403,6 +3038,18 @@
                     "Variable(AmbientDarkness) * (255/100)"
                   ],
                   "subInstructions": []
+                },
+                {
+                  "type": {
+                    "inverted": false,
+                    "value": "ChangePlan"
+                  },
+                  "parameters": [
+                    "WorldAmbientDarkness",
+                    "=",
+                    "0"
+                  ],
+                  "subInstructions": []
                 }
               ],
               "events": []
@@ -2436,33 +3083,9 @@
                   "parameters": [
                     "WorldAmbientDarkness",
                     "=",
-                    "0",
+                    "Player.X() - (SceneWindowWidth() / 2)",
                     "=",
-                    "0"
-                  ],
-                  "subInstructions": []
-                },
-                {
-                  "type": {
-                    "inverted": false,
-                    "value": "ChangeScaleWidth"
-                  },
-                  "parameters": [
-                    "WorldAmbientDarkness",
-                    "=",
-                    "SceneWindowWidth() / 64"
-                  ],
-                  "subInstructions": []
-                },
-                {
-                  "type": {
-                    "inverted": false,
-                    "value": "ChangeScaleHeight"
-                  },
-                  "parameters": [
-                    "WorldAmbientDarkness",
-                    "=",
-                    "SceneWindowHeight() / 64"
+                    "Player.Y() - (SceneWindowHeight() / 2)"
                   ],
                   "subInstructions": []
                 }
@@ -2877,7 +3500,7 @@
           "colorR": 74,
           "creationTime": 0,
           "disabled": false,
-          "folded": false,
+          "folded": true,
           "name": "Collect Button",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -3145,7 +3768,7 @@
           "colorR": 74,
           "creationTime": 0,
           "disabled": false,
-          "folded": true,
+          "folded": false,
           "name": "Multitouch Handling",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -3197,6 +3820,29 @@
                 }
               ],
               "events": [
+                {
+                  "disabled": false,
+                  "folded": false,
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": [
+                    {
+                      "type": {
+                        "inverted": false,
+                        "value": "MettreXY"
+                      },
+                      "parameters": [
+                        "UITouchPoint",
+                        "=",
+                        "UITouchPoint.X() + Variable(OffsetX)",
+                        "=",
+                        "UITouchPoint.Y() + Variable(OffsetY)"
+                      ],
+                      "subInstructions": []
+                    }
+                  ],
+                  "events": []
+                },
                 {
                   "disabled": false,
                   "folded": false,
@@ -3473,22 +4119,114 @@
                       ]
                     }
                   ],
-                  "actions": [
-                    {
-                      "type": {
-                        "inverted": false,
-                        "value": "ModVarObjet"
-                      },
-                      "parameters": [
-                        "UITouchPoint",
-                        "destroyTimer",
-                        "+",
-                        "TimeDelta()*1000"
-                      ],
-                      "subInstructions": []
-                    }
-                  ],
+                  "actions": [],
                   "events": [
+                    {
+                      "disabled": false,
+                      "folded": false,
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "BuiltinCommonInstructions::And"
+                          },
+                          "parameters": [],
+                          "subInstructions": [
+                            {
+                              "type": {
+                                "inverted": false,
+                                "value": "VarObjet"
+                              },
+                              "parameters": [
+                                "UITouchPoint",
+                                "destroyTimer",
+                                "<=",
+                                "0"
+                              ],
+                              "subInstructions": []
+                            },
+                            {
+                              "type": {
+                                "inverted": true,
+                                "value": "SourisSurObjet"
+                              },
+                              "parameters": [
+                                "UIButton",
+                                "",
+                                "yes",
+                                ""
+                              ],
+                              "subInstructions": []
+                            }
+                          ]
+                        }
+                      ],
+                      "actions": [
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "ModVarObjet"
+                          },
+                          "parameters": [
+                            "Player",
+                            "Events.MovePlayer.DestX",
+                            "=",
+                            "UITouchPoint.X()"
+                          ],
+                          "subInstructions": []
+                        },
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "ModVarObjet"
+                          },
+                          "parameters": [
+                            "Player",
+                            "Events.MovePlayer.DestY",
+                            "=",
+                            "UITouchPoint.Y()"
+                          ],
+                          "subInstructions": []
+                        },
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "ModVarObjetTxt"
+                          },
+                          "parameters": [
+                            "Player",
+                            "Events.MovePlayer.Trigger",
+                            "=",
+                            "\"Y\""
+                          ],
+                          "subInstructions": []
+                        }
+                      ],
+                      "events": []
+                    },
+                    {
+                      "disabled": false,
+                      "folded": false,
+                      "type": "BuiltinCommonInstructions::Standard",
+                      "conditions": [],
+                      "actions": [
+                        {
+                          "type": {
+                            "inverted": false,
+                            "value": "ModVarObjet"
+                          },
+                          "parameters": [
+                            "UITouchPoint",
+                            "destroyTimer",
+                            "+",
+                            "TimeDelta()*1000"
+                          ],
+                          "subInstructions": []
+                        }
+                      ],
+                      "events": []
+                    },
                     {
                       "disabled": false,
                       "folded": false,
@@ -4088,7 +4826,7 @@
           "colorR": 74,
           "creationTime": 0,
           "disabled": false,
-          "folded": false,
+          "folded": true,
           "name": "Inventory Menu",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -5043,7 +5781,7 @@
           "colorR": 74,
           "creationTime": 0,
           "disabled": false,
-          "folded": false,
+          "folded": true,
           "name": "Inventory Items",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
@@ -5730,7 +6468,7 @@
           "colorR": 74,
           "creationTime": 0,
           "disabled": false,
-          "folded": false,
+          "folded": true,
           "name": "All UI Buttons",
           "source": "",
           "type": "BuiltinCommonInstructions::Group",
